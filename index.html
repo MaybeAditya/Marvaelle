@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Édition de Marvaelle - Luxury Atelier</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Édition de Marvaelle</a>
+            <nav>
+                <ul>
+                    <li><a href="men.html">Men</a></li>
+                    <li><a href="women.html">Women</a></li>
+                    <li><a href="index.html">Journal</a></li>
+                    <li><a href="#" id="cart-button">Cart (<span id="cart-count">0</span>)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>The F/W '25 Collection</h1>
+                <p>An expression of modern craft.</p>
+                <a href="#selection" class="btn btn-light-outline">Explore the Collection</a>
+            </div>
+        </section>
+
+        <section id="selection" class="featured-products">
+            <div class="container">
+                <h2>The Selection</h2>
+                <div class="product-grid" id="product-grid">
+                    </div>
+            </div>
+        </section>
+
+        <section class="brand-story">
+            <div class="container-medium">
+                <h2>The Craft</h2>
+                <p>We are an atelier dedicated to the synthesis of timeless form and modern function. Each piece is meticulously crafted from sustainably sourced materials, designed not just to be worn, but to be lived in. </p>
+                <a href="#" class="btn btn-dark">Our Story</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Édition de Marvaelle. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cart-items"></div>
+            <h3 id="cart-total">Total: $0.00</h3>
+            <button class="btn btn-primary">Checkout</button>
+        </div>
+    </div>
+
+    <script src="js/products-db.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleSphere - Women</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-category="women"> <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">StyleSphere</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="men.html">Men</a></li>
+                    <li><a href="women.html">Women</a></li>
+                    <li><a href="#" id="cart-button">Cart (<span id="cart-count">0</span>)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-simple">
+            <div class="container">
+                <h1>Women's Collection</h1>
+            </div>
+        </section>
+
+        <section class="featured-products">
+            <div class="container">
+                <div class="product-grid" id="product-grid"></div>
+            </div>
+        </section>
+    </main>
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cart-items"></div>
+            <h3 id="cart-total">Total: $0.00</h3>
+            <button class="btn btn-primary">Checkout</button>
+        </div>
+    </div>
+    <footer class="footer">...</footer> <div id="cart-modal" class="modal">...</div> <script src="js/products-db.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

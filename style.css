@@ -1,0 +1,288 @@
+/* --- Luxury Brand Reset & Variables --- */
+:root {
+    --color-dark: #111111;
+    --color-light: #FFFFFF;
+    --color-grey: #f9f9f9;
+    --color-text: #333333;
+    
+    /* Fonts */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+    background-color: var(--color-light);
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+.container-medium {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-dark);
+    transition: color 0.3s ease;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-dark);
+    margin: 0 0 1rem 0;
+}
+
+p {
+    margin: 0 0 1.5rem 0;
+}
+
+/* --- Buttons --- */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-light-outline {
+    background-color: transparent;
+    border-color: var(--color-light);
+    color: var(--color-light);
+}
+.btn-light-outline:hover {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+}
+
+.btn-dark {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+}
+.btn-dark:hover {
+    background-color: #333;
+}
+
+/* --- Header / Navbar --- */
+.navbar {
+    background-color: var(--color-light);
+    border-bottom: 1px solid #eeeeee;
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--color-dark);
+}
+
+.navbar nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar nav a {
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.navbar nav a:hover, #cart-button:hover {
+    color: #888;
+    cursor: pointer;
+}
+
+#cart-button {
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+/* --- Hero Section --- */
+.hero {
+    height: 90vh; /* Takes 90% of the viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    color: var(--color-light);
+    
+    /* THIS IS CRITICAL: 
+       Create an image in your /images/ folder named 'hero-background.jpg'
+       This should be your *best* full-screen AI model shot.
+    */
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/hero-background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    color: var(--color-light);
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+/* --- Product Grid --- */
+.featured-products {
+    padding: 6rem 0;
+    background-color: var(--color-light);
+}
+
+.featured-products h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.product-grid {
+    display: grid;
+    /* This creates a 2 or 3-column grid with larger images */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 4rem 2rem; /* More row gap than column gap */
+}
+
+.product-card {
+    text-align: center;
+}
+
+/* We removed the border, shadow, and background */
+.product-card .product-link {
+    display: block;
+    color: var(--color-text);
+}
+
+.product-card .product-link:hover {
+    color: #000;
+}
+
+.product-card img {
+    width: 100%;
+    /* Taller, more editorial image shape */
+    height: 500px; 
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+}
+
+.product-card h3 {
+    font-family: var(--font-body); /* Use body font for product title */
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-dark);
+    margin-bottom: 0.5rem;
+}
+
+.product-card .price {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-text);
+}
+
+/* --- Brand Story Section --- */
+.brand-story {
+    background-color: var(--color-grey);
+    padding: 6rem 0;
+    text-align: center;
+}
+
+.brand-story h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.brand-story p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: var(--color-dark);
+    color: #999;
+    text-align: center;
+    padding: 3rem 0;
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+/* --- Cart Modal (No style change needed) --- */
+/* (The old modal CSS is fine, it's hidden anyway) */
+.modal {
+    display: none; position: fixed; z-index: 2000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    overflow: auto; background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+    background-color: #fff; margin: 15% auto; padding: 25px;
+    border: 1px solid #888; width: 80%; max-width: 500px;
+    position: relative;
+}
+.close-button {
+    color: #aaa; float: right; font-size: 28px; font-weight: bold;
+    position: absolute; top: 10px; right: 20px;
+}
+.close-button:hover, .close-button:focus {
+    color: black; text-decoration: none; cursor: pointer;
+}
+#cart-items { margin-top: 20px; max-height: 300px; overflow-y: auto; }
+.cart-item { display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #eee; padding: 10px 0; }
+.cart-item-info { font-weight: 600; }
+.cart-item-price { color: #888; }
+#cart-total { text-align: right; font-size: 1.4rem; margin-top: 1rem; }
