@@ -486,3 +486,93 @@ p {
     font-weight: 700;
     margin-bottom: 1.5rem;
 }
+/* --- Dedicated Auth Page Styles --- */
+.auth-page-container {
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: 2rem;
+}
+
+.auth-intro-text {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.auth-intro-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+.auth-intro-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 1rem auto;
+}
+
+.auth-form-wrapper {
+    background-color: #fdfdfd;
+    border: 1px solid #eee;
+    padding: 3rem;
+    border-radius: 5px;
+}
+.auth-form-wrapper h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form-group select,
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background-color: #fff; /* Ensure select has bg */
+}
+
+.dob-group {
+    display: flex;
+    gap: 1rem;
+}
+.dob-group input {
+    text-align: center;
+}
+.dob-group input::placeholder {
+    color: #bbb;
+}
+
+.form-group-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: 2rem 0;
+}
+.form-group-checkbox input {
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+.form-group-checkbox label {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.auth-form-wrapper .btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+}
+
+.auth-switch-text {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+.auth-switch-text a {
+    font-weight: 600;
+    text-decoration: underline;
+}

@@ -2,42 +2,53 @@ import { neon } from '@netlify/neon';
 import bcrypt from 'bcryptjs';
 
 export async function handler(event) {
-    // 1. We only accept POST requests
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
     }
 
-    // 2. Parse the incoming data
-    const { name, email, password } = JSON.parse(event.body);
+    // 1. Parse all new fields from the request
+    const { 
+        name, email, password, 
+        title, phone, dob, country 
+    } = JSON.parse(event.body);
+
     if (!name || !email || !password) {
         return { statusCode: 400, body: JSON.stringify({ error: 'Please provide name, email, and password.' }) };
     }
 
-    // 3. Hash the password
-    const passwordHash = await bcrypt.hash(password, 10); // 10 is the salt rounds
+    // 2. Hash the password
+    const passwordHash = await bcrypt.hash(password, 10);
 
-    // 4. Connect to the database
+    // 3. Connect to the database
     const sql = neon(process.env.NETLIFY_DATABASE_URL);
 
     try {
-        // 5. Insert the new user
+        // 5. Insert the new user with all fields
+        // This requires your database table to have these columns!
         await sql`
-            INSERT INTO users (name, email, password_hash) 
-            VALUES (${name}, ${email}, ${passwordHash})
+            INSERT INTO users (
+                name, email, password_hash, 
+                title, phone, dob, country
+            ) 
+            VALUES (
+                ${name}, ${email}, ${passwordHash}, 
+                ${title}, ${phone}, ${dob}, ${country}
+            )
         `;
 
         return {
-            statusCode: 201, // 201 means "Created"
+            statusCode: 201, 
             body: JSON.stringify({ message: 'User created successfully.' })
         };
     } catch (error) {
-        // 6. Handle errors (like a duplicate email)
         if (error.message.includes('unique constraint')) {
             return {
-                statusCode: 409, // 409 means "Conflict"
+                statusCode: 409,
                 body: JSON.stringify({ error: 'An account with this email already exists.' })
             };
         }
+        // Log the actual error to your Netlify function logs for debugging
+        console.error(error); 
         return { statusCode: 500, body: JSON.stringify({ error: 'Database error.' }) };
     }
 }

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Édition de Marvaelle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Édition de Marvaelle</a>
+            <nav>
+                <ul>
+                    <li><a href="men.html">Men</a></li>
+                    <li><a href="women.html">Women</a></li>
+                    <li><a href="index.html">Journal</a></li>
+                    <li><a href="login.html" id="login-button">Login</a></li>
+                    <li><a href="cart.html" id="cart-button">Cart (<span id="cart-count">0</span>)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="auth-page-container">
+            <div class="auth-intro-text">
+                <h2>Register</h2>
+                <p>Create a global Édition de Marvaelle account to manage your personal information, benefit from a more personalised shopping experience, and enjoy faster online checkout.</p>
+                <p>If you do not wish to create an account, you will still be able to make purchases with guest checkout.</p>
+            </div>
+
+            <div class="auth-form-wrapper">
+                <form id="signup-page-form">
+                    
+                    <div class="form-group">
+                        <label for="signup-email">Email*</label>
+                        <input type="email" id="signup-email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-password">Password*</label>
+                        <input type="password" id="signup-password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-title">Title</label>
+                        <select id="signup-title">
+                            <option value="">Choose title</option>
+                            <option value="Mr">Mr</option>
+                            <option value="Ms">Ms</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Miss">Miss</option>
+                            <option value="Mx">Mx</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-firstname">First Name*</label>
+                        <input type="text" id="signup-firstname" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-lastname">Last Name*</label>
+                        <input type="text" id="signup-lastname" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-phone">Telephone (Optional)</label>
+                        <input type="tel" id="signup-phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date of Birth (Optional)</label>
+                        <div class="dob-group">
+                            <input type="text" id="signup-dob-day" placeholder="DD" maxlength="2">
+                            <input type="text" id="signup-dob-month" placeholder="MM" maxlength="2">
+                            <input type="text" id="signup-dob-year" placeholder="YYYY" maxlength="4">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-country">Location of Residence*</label>
+                        <select id="signup-country" required>
+                            <option value="">Choose country</option>
+                            <option value="United States">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="India">India</option>
+                            <option value="Australia">Australia</option>
+                            </select>
+                    </div>
+
+                    <div class="form-group-checkbox">
+                        <input type="checkbox" id="signup-age-confirm" required>
+                        <label for="signup-age-confirm">By proceeding, you confirm that you are at or above the age required to create an account.</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark">Create Account</button>
+                    <p class="auth-switch-text">
+                        Already have an account? <a href="login.html">Login</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Édition de Marvaelle. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/products-db.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
