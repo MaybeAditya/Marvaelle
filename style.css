@@ -286,3 +286,203 @@ p {
 .cart-item-info { font-weight: 600; }
 .cart-item-price { color: #888; }
 #cart-total { text-align: right; font-size: 1.4rem; margin-top: 1rem; }
+
+/* --- Authentication Modal --- */
+.auth-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 2.5rem 3rem;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    border-radius: 4px;
+}
+
+/* Use the existing close button style from style.css */
+.auth-content .close-button {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.auth-content .close-button:hover {
+    color: #333;
+}
+
+/* --- Auth Tabs --- */
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 2rem;
+}
+
+.auth-tab-link {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.75rem 0;
+    margin-right: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    border-bottom: 3px solid transparent;
+}
+
+.auth-tab-link.active {
+    color: var(--color-dark);
+    border-bottom-color: var(--color-dark);
+}
+
+/* --- Auth Tab Content --- */
+.auth-tab-content {
+    display: none;
+}
+.auth-tab-content.active {
+    display: block;
+}
+
+.auth-tab-content h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* --- Form Styles --- */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-text);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Important */
+    font-family: var(--font-body);
+    font-size: 1rem;
+}
+
+.auth-content .btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+}
+/* --- Cart Page Styles --- */
+#cart-page-container {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
+#cart-page-container h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.cart-item-page {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 1.5rem 0;
+}
+
+.cart-item-page img {
+    width: 100px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.cart-item-page-info {
+    flex-grow: 1;
+}
+
+.cart-item-page-info h3 {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+}
+
+.cart-item-page-info p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.cart-item-page-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cart-item-page-controls input {
+    width: 50px;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.cart-item-page-controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #999;
+    text-decoration: underline;
+}
+.cart-item-page-controls button:hover {
+    color: var(--color-dark);
+}
+
+.cart-item-page-price {
+    font-size: 1.2rem;
+    font-weight: 600;
+    min-width: 100px;
+    text-align: right;
+}
+
+#cart-summary-page {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#cart-total-page {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
