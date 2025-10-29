@@ -41,11 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- Signup Page Logic ---
     if (signupForm) {
         signupForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            let response; // Define response here to access it in catch block
+            let response; // Keep this defined up here
 
             const signupData = {
                 name: document.getElementById("signup-firstname").value + " " + document.getElementById("signup-lastname").value,
@@ -63,25 +62,25 @@ document.addEventListener("DOMContentLoaded", () => {
                     body: JSON.stringify(signupData)
                 });
 
-                const data = await response.json();
+               
                 if (!response.ok) {
-                    throw new Error(data.error);
+                    // 2. Get the raw server error text (since it's not JSON)
+                    const errorText = await response.text();
+                    
+                    // 3. Throw a new error to be caught by the 'catch' block
+                    throw new Error(`Server Error: ${response.status} ${response.statusText}\n\n${errorText}`);
                 }
+
+                // 4. If we get here, the response IS ok and we can safely parse JSON
+                const data = await response.json();
 
                 alert("Signup successful! Please log in.");
                 window.location.href = "/login.html"; 
 
             } catch (error) {
-                // NEW DEBUGGING CATCH BLOCK
+                // This catch block will now show the REAL error message
                 console.error("Signup Error:", error);
-                if (response) {
-                    // If the response was not JSON, alert the raw text
-                    const rawText = await response.text();
-                    alert(`Server Error: ${response.status} ${response.statusText}\n\nResponse:\n${rawText}`);
-                } else {
-                    // If fetch itself failed
-                    alert(`Fetch Error: ${error.message}`);
-                }
+                alert(error.message); // This will alert the useful message from the 'throw' above
             }
         });
     }
