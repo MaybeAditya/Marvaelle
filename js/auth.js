@@ -4,12 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const signupForm = document.getElementById("signup-page-form");
     
     // --- Login Page Logic ---
+    // --- Login Page Logic ---
     if (loginForm) {
         loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             const email = document.getElementById("login-email").value;
             const password = document.getElementById("login-password").value;
-            let response; // Define response here to access it in catch block
+            let response; // Define response here
 
             try {
                 response = await fetch("/.netlify/functions/login", {
@@ -17,26 +18,26 @@ document.addEventListener("DOMContentLoaded", () => {
                     body: JSON.stringify({ email, password })
                 });
 
-                const data = await response.json();
+                // *** THIS IS THE FIX ***
+                // 1. Check if the response was NOT successful
                 if (!response.ok) {
-                    throw new Error(data.error);
+                    // 2. Get the raw server error text
+                    const errorText = await response.text();
+                    // 3. Throw a new error to be caught
+                    throw new Error(`Server Error: ${response.status} ${response.statusText}\n\n${errorText}`);
                 }
+
+                // 4. If we get here, the response IS ok
+                const data = await response.json();
 
                 localStorage.setItem('authToken', data.token);
                 alert("Login successful!");
                 window.location.href = "/"; 
 
             } catch (error) {
-                // NEW DEBUGGING CATCH BLOCK
+                // This catch block will now show the REAL error
                 console.error("Login Error:", error);
-                if (response) {
-                    // If the response was not JSON, alert the raw text
-                    const rawText = await response.text();
-                    alert(`Server Error: ${response.status} ${response.statusText}\n\nResponse:\n${rawText}`);
-                } else {
-                    // If fetch itself failed
-                    alert(`Fetch Error: ${error.message}`);
-                }
+                alert(error.message); // This will alert the useful message
             }
         });
     }
