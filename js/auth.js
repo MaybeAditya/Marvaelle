@@ -115,12 +115,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
-    // --- Header Logic (for 'Account' button) ---
-    const loginButton = document.getElementById("login-button");
-    if (loginButton && localStorage.getItem('authToken')) {
-         loginButton.textContent = "Account";
-         // Also update the link to go to an account page (which you can build later)
-         loginButton.href = "account.html"; 
-    }
 });
