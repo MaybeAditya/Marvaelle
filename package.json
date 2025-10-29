@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Dependencies for Netlify functions",
   "dependencies": {
-    "@netlify/neon": "^0.14.0",
+    "@netlify/neon": "0.1.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2"
   }
+
 }
