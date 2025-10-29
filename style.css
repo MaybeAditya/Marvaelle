@@ -576,3 +576,21 @@ p {
     font-weight: 600;
     text-decoration: underline;
 }
+/* --- Auth Messages --- */
+.auth-message {
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    /* This makes it invisible until we add text */
+    color: transparent; 
+    transition: color 0.3s ease;
+}
+
+.auth-message.error {
+    color: #c00; /* A dark red */
+}
+
+.auth-message.success {
+    color: #088a00; /* A dark green */
+}
