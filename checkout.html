@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Édition de Marvaelle</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #checkout-container {
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 2rem;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            background-color: #fdfdfd;
+        }
+
+        #checkout-container h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* This is the container for the Stripe form */
+        #payment-element {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Styling for payment messages */
+        #payment-message {
+            font-size: 0.95rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-weight: 600;
+            color: transparent;
+            transition: color 0.3s ease;
+        }
+
+        #payment-message.error {
+            color: #c00;
+        }
+
+        #payment-message.success {
+            color: #088a00;
+        }
+
+        /* Disable the button while processing */
+        #submit-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Édition de Marvaelle</a>
+            <nav>
+                <ul>
+                    <li><a href="men.html">Men</a></li>
+                    <li><a href="women.html">Women</a></li>
+                    <li><a href="cart.html" id="cart-button">Cart (<span id="cart-count">0</span>)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div id="checkout-container">
+            <h1>Complete Your Purchase</h1>
+
+            <form id="payment-form">
+                <div id="payment-element"></div>
+
+                <button typeid="submit" class="btn btn-dark" id="submit-button" style="width: 100%;">
+                    <span id="button-text">Pay Now</span>
+                </button>
+
+                <div id="payment-message" role="alert"></div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Édition de Marvaelle. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script src="js/products-db.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+
+</html>

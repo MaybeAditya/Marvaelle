@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - Édition de Marvaelle</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .success-container {
+            text-align: center;
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">...</header>
+    <main>
+        <div class="success-container">
+            <h1>Thank You!</h1>
+            <p>Your payment was successful and your order is confirmed.</p>
+            <p>We are preparing your items for shipment.</p>
+            <a href="index.html" class="btn btn-dark">Continue Shopping</a>
+        </div>
+    </main>
+
+    <footer class="footer">...</footer>
+    <script>
+        // CRITICAL: Clear the cart after a successful purchase
+        localStorage.removeItem('styleSphereCart');
+
+        // We can also update the visual cart count in the header
+        document.addEventListener("DOMContentLoaded", () => {
+            const cartCountElement = document.getElementById("cart-count");
+            if (cartCountElement) {
+                cartCountElement.textContent = "0";
+            }
+        });
+    </script>
+</body>
+
+</html>
