@@ -1,48 +1,66 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     // --- Global Elements (in the header) ---
     const cartCountElement = document.getElementById("cart-count");
 
     // --- Page-Specific Elements (only on cart.html) ---
     const cartItemsPageContainer = document.getElementById("cart-items-page");
     const cartTotalPageElement = document.getElementById("cart-total-page");
-    
+
     // Load cart from localStorage or initialize an empty array
     let cart = JSON.parse(localStorage.getItem('styleSphereCart')) || [];
 
-    // --- Global "Add to Cart" Function ---
-    // This is exposed so product-detail.js can use it
+
     window.addItemToCart = (id) => {
-        // Find the product in our database (products is from products-db.js)
         const product = products.find(p => p.id === id);
-        if (!product) return; 
+        if (!product) return;
 
         const existingItem = cart.find(item => item.id === id);
 
         if (existingItem) {
             existingItem.quantity++;
         } else {
-            // Add all product info for the cart page
-            cart.push({ 
-                id: product.id, 
-                name: product.name, 
-                price: product.price, 
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
                 image: product.image,
-                quantity: 1 
+                quantity: 1
             });
         }
-        
+
         saveCart();
         updateCartCount();
-        
-        // If we're on the cart page, re-render it
+        showCartToast(product.name); // <-- ADDED THIS
+
         if (cartItemsPageContainer) {
             renderCartPage();
         }
     };
-    
+
+    // --- Toast Notification Function ---
+    let toastTimer; // Timer to clear the toast
+    function showCartToast(productName) {
+        const toastElement = document.getElementById("cart-toast-notification");
+        if (!toastElement) return; // Do nothing if toast isn't on the page
+
+        // Set the message
+        toastElement.textContent = `Added "${productName}" to cart!`;
+
+        // Show the toast
+        toastElement.classList.add("show");
+
+        // Clear any existing timer
+        clearTimeout(toastTimer);
+
+        // Hide the toast after 3 seconds
+        toastTimer = setTimeout(() => {
+            toastElement.classList.remove("show");
+        }, 3000);
+    }
+
     // --- Cart Management Functions ---
-    
+
     function saveCart() {
         localStorage.setItem('styleSphereCart', JSON.stringify(cart));
     }
@@ -79,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderCartPage() {
         // This function only runs if we are on cart.html
-        if (!cartItemsPageContainer) return; 
+        if (!cartItemsPageContainer) return;
 
         cartItemsPageContainer.innerHTML = "";
         let total = 0;

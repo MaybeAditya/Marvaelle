@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderProducts(productsToRender) {
         if (!productGrid) return; // Exit if no product grid on this page
         productGrid.innerHTML = ""; // Clear existing
-        
+
         if (productsToRender.length === 0) {
             productGrid.innerHTML = "<p>No products found in this category.</p>";
             return;
@@ -26,16 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
         productsToRender.forEach(product => {
             const productCard = document.createElement("div");
             productCard.classList.add("product-card");
-            
+
             // UPDATED: No more button. The entire card links to the product page.
             productCard.innerHTML = `
-                <a href="product.html?id=${product.id}" class="product-link">
+                <a href="/products/${product.id}" class="product-link">
                     <img src="${product.image}" alt="${product.name}">
                     <h3>${product.name}</h3>
                     <p class="price">$${product.price.toFixed(2)}</p>
                 </a>
             `;
-            
+
             productGrid.appendChild(productCard);
         });
 

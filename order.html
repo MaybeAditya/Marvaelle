@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Édition de Marvaelle</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .orders-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .order-card {
+            border: 1px solid #eee;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            background-color: #fdfdfd;
+        }
+
+        .order-header {
+            background-color: #f9f9f9;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+
+        .order-header span {
+            font-weight: 600;
+        }
+
+        .order-body {
+            padding: 1.5rem;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .order-item:last-child {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .order-item-details {
+            flex-grow: 1;
+        }
+
+        .order-item-details h4 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">...</header>
+
+    <main>
+        <div class="orders-container">
+            <h1>My Orders</h1>
+
+            <div id="orders-list">
+                <p>Loading your order history...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">...</footer>
+
+    <script src="js/products-db.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/session.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            // --- 1. Page Guard ---
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            // --- 2. Fetch Orders ---
+            const ordersListDiv = document.getElementById("orders-list");
+            try {
+                const response = await fetch("/.netlify/functions/get-orders", {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch orders.');
+                }
+
+                const orders = await response.json();
+
+                if (orders.length === 0) {
+                    ordersListDiv.innerHTML = "<p>You have not placed any orders yet.</p>";
+                    return;
+                }
+
+                // --- 3. Render Orders ---
+                ordersListDiv.innerHTML = ""; // Clear "Loading..."
+                orders.forEach(order => {
+                    ordersListDiv.innerHTML += renderOrderCard(order);
+                });
+
+            } catch (error) {
+                ordersListDiv.innerHTML = `<p style="color: red;">${error.message}</p>`;
+            }
+        });
+
+        // --- Helper function to render a single order card ---
+        function renderOrderCard(order) {
+            // Format total from cents (paisa) to dollars (rupees)
+            const total = (order.total_amount / 100).toFixed(2);
+            // Format date to be more readable
+            const orderDate = new Date(order.created_at).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            // Loop through items to build the items list
+            // Note: We need 'products' array from products-db.js for item names/images
+            let itemsHtml = '';
+            order.items.forEach(item => {
+                const product = products.find(p => p.id === item.product_id); // Get name/image
+                const price = (item.price_at_purchase / 100).toFixed(2);
+
+                itemsHtml += `
+                    <div class="order-item">
+                        <img src="${product?.image || ''}" alt="" style="width: 60px; height: 75px; object-fit: cover;">
+                        <div class="order-item-details">
+                            <h4>${product?.name || 'Product not found'}</h4>
+                            <p>Qty: ${item.quantity}</p>
+                            <p>Price: $${price} each</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Return the full card HTML
+            return `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>Order Placed: <span>${orderDate}</span></div>
+                        <div>Total: <span>$${total}</span></div>
+                        <div>Order #: <span>${order.id}</span></div>
+                    </div>
+                    <div class="order-body">
+                        <p><strong>Status: ${order.status}</strong></p>
+                        ${itemsHtml}
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+
+</html>
