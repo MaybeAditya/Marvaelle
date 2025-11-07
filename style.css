@@ -4,7 +4,7 @@
     --color-light: #FFFFFF;
     --color-grey: #f9f9f9;
     --color-text: #333333;
-    
+
     /* Fonts */
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Montserrat', sans-serif;
@@ -32,6 +32,7 @@ main {
     margin: 0 auto;
     padding: 0 40px;
 }
+
 .container-medium {
     max-width: 800px;
     margin: 0 auto;
@@ -54,7 +55,9 @@ ul {
     padding: 0;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-family: var(--font-heading);
     font-weight: 700;
     color: var(--color-dark);
@@ -83,6 +86,7 @@ p {
     border-color: var(--color-light);
     color: var(--color-light);
 }
+
 .btn-light-outline:hover {
     background-color: var(--color-light);
     color: var(--color-dark);
@@ -92,6 +96,7 @@ p {
     background-color: var(--color-dark);
     color: var(--color-light);
 }
+
 .btn-dark:hover {
     background-color: #333;
 }
@@ -131,7 +136,8 @@ p {
     font-size: 0.9rem;
 }
 
-.navbar nav a:hover, #cart-button:hover {
+.navbar nav a:hover,
+#cart-button:hover {
     color: #888;
     cursor: pointer;
 }
@@ -145,19 +151,20 @@ p {
 
 /* --- Hero Section --- */
 .hero {
-    height: 90vh; /* Takes 90% of the viewport height */
+    height: 90vh;
+    /* Takes 90% of the viewport height */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     position: relative;
     color: var(--color-light);
-    
+
     /* THIS IS CRITICAL: 
        Create an image in your /images/ folder named 'hero-background.jpg'
        This should be your *best* full-screen AI model shot.
     */
-    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/hero-background.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/hero-background.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -166,14 +173,14 @@ p {
     font-size: 4rem;
     color: var(--color-light);
     margin-bottom: 1rem;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .hero-content p {
     font-size: 1.2rem;
     font-weight: 300;
     margin-bottom: 2rem;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 /* --- Product Grid --- */
@@ -192,7 +199,8 @@ p {
     display: grid;
     /* This creates a 2 or 3-column grid with larger images */
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 4rem 2rem; /* More row gap than column gap */
+    gap: 4rem 2rem;
+    /* More row gap than column gap */
 }
 
 .product-card {
@@ -212,13 +220,14 @@ p {
 .product-card img {
     width: 100%;
     /* Taller, more editorial image shape */
-    height: 500px; 
+    height: 500px;
     object-fit: cover;
     margin-bottom: 1.5rem;
 }
 
 .product-card h3 {
-    font-family: var(--font-body); /* Use body font for product title */
+    font-family: var(--font-body);
+    /* Use body font for product title */
     font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -264,32 +273,76 @@ p {
 /* --- Cart Modal (No style change needed) --- */
 /* (The old modal CSS is fine, it's hidden anyway) */
 .modal {
-    display: none; position: fixed; z-index: 2000;
-    left: 0; top: 0; width: 100%; height: 100%;
-    overflow: auto; background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
 }
+
 .modal-content {
-    background-color: #fff; margin: 15% auto; padding: 25px;
-    border: 1px solid #888; width: 80%; max-width: 500px;
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 25px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
     position: relative;
 }
+
 .close-button {
-    color: #aaa; float: right; font-size: 28px; font-weight: bold;
-    position: absolute; top: 10px; right: 20px;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
 }
-.close-button:hover, .close-button:focus {
-    color: black; text-decoration: none; cursor: pointer;
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
-#cart-items { margin-top: 20px; max-height: 300px; overflow-y: auto; }
-.cart-item { display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 1px solid #eee; padding: 10px 0; }
-.cart-item-info { font-weight: 600; }
-.cart-item-price { color: #888; }
-#cart-total { text-align: right; font-size: 1.4rem; margin-top: 1rem; }
+
+#cart-items {
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.cart-item-info {
+    font-weight: 600;
+}
+
+.cart-item-price {
+    color: #888;
+}
+
+#cart-total {
+    text-align: right;
+    font-size: 1.4rem;
+    margin-top: 1rem;
+}
 
 /* --- Authentication Modal --- */
 .auth-modal {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     position: fixed;
     z-index: 2000;
     left: 0;
@@ -323,6 +376,7 @@ p {
     font-weight: bold;
     cursor: pointer;
 }
+
 .auth-content .close-button:hover {
     color: #333;
 }
@@ -356,6 +410,7 @@ p {
 .auth-tab-content {
     display: none;
 }
+
 .auth-tab-content.active {
     display: block;
 }
@@ -386,7 +441,8 @@ p {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Important */
+    box-sizing: border-box;
+    /* Important */
     font-family: var(--font-body);
     font-size: 1rem;
 }
@@ -396,6 +452,7 @@ p {
     padding: 15px;
     font-size: 1rem;
 }
+
 /* --- Cart Page Styles --- */
 #cart-page-container {
     max-width: 900px;
@@ -461,6 +518,7 @@ p {
     color: #999;
     text-decoration: underline;
 }
+
 .cart-item-page-controls button:hover {
     color: var(--color-dark);
 }
@@ -486,6 +544,7 @@ p {
     font-weight: 700;
     margin-bottom: 1.5rem;
 }
+
 /* --- Dedicated Auth Page Styles --- */
 .auth-page-container {
     max-width: 700px;
@@ -497,10 +556,12 @@ p {
     text-align: center;
     margin-bottom: 3rem;
 }
+
 .auth-intro-text h2 {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
 }
+
 .auth-intro-text p {
     font-size: 1rem;
     line-height: 1.6;
@@ -514,6 +575,7 @@ p {
     padding: 3rem;
     border-radius: 5px;
 }
+
 .auth-form-wrapper h2 {
     text-align: center;
     font-size: 2rem;
@@ -529,19 +591,22 @@ p {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     font-family: var(--font-body);
     font-size: 1rem;
-    background-color: #fff; /* Ensure select has bg */
+    background-color: #fff;
+    /* Ensure select has bg */
 }
 
 .dob-group {
     display: flex;
     gap: 1rem;
 }
+
 .dob-group input {
     text-align: center;
 }
+
 .dob-group input::placeholder {
     color: #bbb;
 }
@@ -552,10 +617,12 @@ p {
     gap: 0.75rem;
     margin: 2rem 0;
 }
+
 .form-group-checkbox input {
     flex-shrink: 0;
     margin-top: 5px;
 }
+
 .form-group-checkbox label {
     font-size: 0.9rem;
     line-height: 1.5;
@@ -572,10 +639,12 @@ p {
     margin-top: 1.5rem;
     font-size: 0.9rem;
 }
+
 .auth-switch-text a {
     font-weight: 600;
     text-decoration: underline;
 }
+
 /* --- Auth Messages --- */
 .auth-message {
     font-size: 0.95rem;
@@ -583,14 +652,36 @@ p {
     margin-bottom: 1.5rem;
     font-weight: 600;
     /* This makes it invisible until we add text */
-    color: transparent; 
+    color: transparent;
     transition: color 0.3s ease;
 }
 
 .auth-message.error {
-    color: #c00; /* A dark red */
+    color: #c00;
+    /* A dark red */
 }
 
 .auth-message.success {
-    color: #088a00; /* A dark green */
+    color: #088a00;
+    /* A dark green */
+}
+
+/* --- New Footer Link Styles --- */
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.footer-links a {
+    color: #999;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-links a:hover {
+    color: var(--color-light);
 }
