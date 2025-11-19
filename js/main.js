@@ -27,20 +27,29 @@ document.addEventListener("DOMContentLoaded", () => {
             const productCard = document.createElement("div");
             productCard.classList.add("product-card");
 
-            // UPDATED: No more button. The entire card links to the product page.
+            // LUXURY ADDITION: 30% chance to show "Sold Out"
+            const isSoldOut = Math.random() < 0.3;
+            const badgeHTML = isSoldOut
+                ? `<span style="position: absolute; top: 10px; left: 10px; background: #111; color: #fff; padding: 4px 8px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; z-index: 10;">Sold Out</span>`
+                : '';
+            const opacityStyle = isSoldOut ? 'opacity: 0.6;' : '';
+
+            // FIXED LINK: Points to product.html?id=...
             productCard.innerHTML = `
-                <a href="/products/${product.id}" class="product-link">
+                <a href="product.html?id=${product.id}" class="product-link" style="position: relative; ${opacityStyle} display: block;">
+                    ${badgeHTML}
                     <img src="${product.image}" alt="${product.name}">
                     <h3>${product.name}</h3>
                     <p class="price">$${product.price.toFixed(2)}</p>
                 </a>
             `;
 
+            if (isSoldOut) {
+                productCard.querySelector('a').style.pointerEvents = 'none';
+            }
+
             productGrid.appendChild(productCard);
         });
-
-        // We no longer need to attach listeners here
-        // attachAddToCartListeners(); // <-- DELETE OR COMMENT OUT THIS LINE
     }
 
     function attachAddToCartListeners() {
@@ -56,4 +65,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+    // Scroll Reveal Observer
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('section, .product-card, footer').forEach(el => {
+        el.classList.add('reveal');
+        observer.observe(el);
+    });
 });
