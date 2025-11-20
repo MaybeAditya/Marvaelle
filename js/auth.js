@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInterval(checkGoogleInterval); // Stop checking
 
             google.accounts.id.initialize({
-                client_id: "284150378430-gr7ap6qofsmqk1jr9nak3vbea7ts5g68.apps.googleusercontent.com",
+                client_id: "284150378430-i6c32je3ro76tielll3fger15l8bqcg6.apps.googleusercontent.com",
                 callback: handleGoogleCredentialResponse
             });
 
@@ -89,4 +89,5 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("click", (event) => {
         if (event.target === loginModal) loginModal.style.display = "none";
     });
+
 });
