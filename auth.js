@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function checkLoginState() {
         const token = localStorage.getItem('authToken');
-        console.log('Login state checked, token exists:', !!token);
         if (token && loginButton) {
             loginButton.textContent = "Account";
         } else if (loginButton) {
@@ -41,20 +40,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Check for Google library and initialize
-    const checkGoogleInterval = setInterval(() => {
+    // Wait for Google library to load
+    window.handleGoogleLoad = function () {
+        console.log('Google library loaded');
+        initializeGoogleAuth();
+    };
+
+    // Fallback: check every 500ms for Google library
+    const googleCheckInterval = setInterval(() => {
         if (typeof google !== 'undefined') {
-            clearInterval(checkGoogleInterval);
+            clearInterval(googleCheckInterval);
             initializeGoogleAuth();
         }
     }, 500);
 
-    // Fallback: try again after 3 seconds
+    // Timeout after 5 seconds
     setTimeout(() => {
-        if (typeof google !== 'undefined' && !googleInitialized) {
-            initializeGoogleAuth();
+        clearInterval(googleCheckInterval);
+        if (!googleInitialized) {
+            console.warn('Google library failed to load within 5 seconds');
         }
-    }, 3000);
+    }, 5000);
 
     // --- 3. HANDLE LOGIN ---
     async function handleGoogleCredentialResponse(response) {
@@ -92,10 +98,17 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderGoogleButton() {
         if (!googleInitialized) {
             console.log('Google not initialized, cannot render button');
-            // Try to initialize now
-            if (typeof google !== 'undefined' && initializeGoogleAuth()) {
-                // If initialization succeeds, proceed to render
-                return actuallyRenderButton();
+            // Try to initialize now if Google library is available
+            if (typeof google !== 'undefined') {
+                if (initializeGoogleAuth()) {
+                    return actuallyRenderButton();
+                }
+            }
+
+            // Show loading state
+            const container = document.getElementById("google_btn_container");
+            if (container) {
+                container.innerHTML = '<div style="padding: 12px; background: #f5f5f5; border-radius: 4px;">Loading Google Sign-In...</div>';
             }
             return false;
         }
@@ -150,24 +163,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log('Opening login modal');
                 loginModal.style.display = "block";
 
-                // Try to render Google button with a small delay to ensure modal is visible
-                setTimeout(() => {
-                    if (!googleButtonRendered) {
-                        const success = renderGoogleButton();
-                        if (!success) {
-                            // Show fallback message
-                            const container = document.getElementById("google_btn_container");
-                            if (container) {
-                                container.innerHTML = `
-                                    <div style="color: red; padding: 20px; border: 1px solid #ccc;">
-                                        <p>Google Sign-In not available</p>
-                                        <button onclick="location.reload()">Reload Page</button>
-                                    </div>
-                                `;
+                // Try to render Google button
+                if (!googleButtonRendered) {
+                    const success = renderGoogleButton();
+                    if (!success) {
+                        // Set up a retry mechanism
+                        const retryInterval = setInterval(() => {
+                            if (googleInitialized && !googleButtonRendered) {
+                                clearInterval(retryInterval);
+                                renderGoogleButton();
                             }
-                        }
+                        }, 200);
+
+                        // Clear after 3 seconds
+                        setTimeout(() => clearInterval(retryInterval), 3000);
                     }
-                }, 100);
+                }
             }
         });
     }
@@ -183,7 +194,4 @@ document.addEventListener("DOMContentLoaded", () => {
             loginModal.style.display = "none";
         }
     });
-
-    // Add some debug info
-    console.log('Auth script loaded successfully');
 });

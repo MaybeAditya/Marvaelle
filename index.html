@@ -15,8 +15,8 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
+    <!-- Change this line in your head section -->
+    <script src="https://accounts.google.com/gsi/client" onload="handleGoogleLoad()" async defer></script>
 </head>
 
 <body>
@@ -105,6 +105,5 @@
     <script src="js/main.js"></script>
 
 </body>
-
 
 </html>
