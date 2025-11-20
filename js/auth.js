@@ -17,20 +17,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- 2. INITIALIZE GOOGLE BUTTON ---
     // We wait for the window to load so the Google script is ready
-    window.onload = function () {
-        if (typeof google !== 'undefined') { // Check if Google script loaded
+    // --- 2. INITIALIZE GOOGLE BUTTON (ROBUST VERSION) ---
+    // Check every 500ms if Google is ready, instead of just once.
+    const checkGoogleInterval = setInterval(() => {
+        if (typeof google !== 'undefined') {
+            clearInterval(checkGoogleInterval); // Stop checking
+
             google.accounts.id.initialize({
-                client_id: "284150378430-gr7ap6qofsmqk1jr9nak3vbea7ts5g68.apps.googleusercontent.com", // <--- PASTE YOUR CLIENT ID HERE FOR LOCAL TESTING
+                client_id: "284150378430-gr7ap6qofsmqk1jr9nak3vbea7ts5g68.apps.googleusercontent.com",
                 callback: handleGoogleCredentialResponse
             });
 
-            // Render the button (Black theme for luxury)
             google.accounts.id.renderButton(
                 document.getElementById("google_btn_container"),
                 { theme: "filled_black", size: "large", shape: "rectangular", width: "300", text: "signin_with" }
             );
         }
-    };
+    }, 500);
 
     // --- 3. HANDLE GOOGLE LOGIN ---
     async function handleGoogleCredentialResponse(response) {
