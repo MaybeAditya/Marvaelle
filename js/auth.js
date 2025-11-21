@@ -106,11 +106,11 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             google.accounts.id.renderButton(
                 container,
-                { 
-                    theme: "filled_black", 
-                    size: "large", 
-                    shape: "rectangular", 
-                    width: "300", 
+                {
+                    theme: "filled_black",
+                    size: "large",
+                    shape: "rectangular",
+                    width: "300",
                     text: "signin_with"
                 }
             );
