@@ -6,13 +6,22 @@ const razorpay = new Razorpay({
 });
 
 export async function handler(event) {
-    if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
+    // 1. Security: Reject non-POST requests
+    if (event.httpMethod !== 'POST') {
+        return { statusCode: 405, body: 'Method Not Allowed' };
+    }
 
     try {
         const { amount } = JSON.parse(event.body);
 
+        // 2. Validation: Ensure amount exists
+        if (!amount) {
+            return { statusCode: 400, body: JSON.stringify({ error: "Amount is required" }) };
+        }
+
         const options = {
-            amount: amount * 100, // Convert to paisa
+            // FIX: Use Math.round() to prevent "Invalid amount" errors
+            amount: Math.round(amount * 100),
             currency: "INR",
             receipt: "order_" + Math.random().toString(36).substring(7)
         };
