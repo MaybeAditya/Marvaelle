@@ -185,6 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ... (This goes after the final }); in your file)
 
 // --- RAZORPAY CHECKOUT LOGIC ---
+// --- RAZORPAY CHECKOUT LOGIC ---
 
 // 1. Load Razorpay Script dynamically (Safe check to avoid errors)
 if (!document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]')) {
@@ -196,7 +197,7 @@ if (!document.querySelector('script[src="https://checkout.razorpay.com/v1/checko
 // 2. Checkout Button Listener
 document.addEventListener("click", async (e) => {
     // Check if clicked element is a Checkout button (in Modal OR on Cart Page)
-    if (e.target && (e.target.matches('#cart-modal .btn-primary') || e.target.matches('#cart-summary-page .btn-dark'))) {
+    if (e.target && (e.target.matches('#cart-modal .btn-primary') || e.target.matches('#cart-summary-page .btn-dark') || e.target.matches('.btn-dark'))) {
 
         const checkoutBtn = e.target;
 
@@ -233,26 +234,71 @@ document.addEventListener("click", async (e) => {
 
             // Open Razorpay Payment Window
             const options = {
-                "key": "rzp_test_RhbHNyejePQu6T", // Replace with your actual Key ID
+                "key": "rzp_test_RhbHNyejePQu6T", // Your Key ID
                 "amount": orderData.amount,
                 "currency": "INR",
                 "name": "Édition de Marvaelle",
                 "description": "Luxury Checkout",
                 "order_id": orderData.id,
-                "handler": function (response) {
-                    // On Success:
-                    alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
 
-                    // Clear Cart
-                    localStorage.removeItem('styleSphereCart');
+                // --- THE HANDLER YOU WROTE (Integrated Correctly) ---
+                "handler": async function (response) {
+                    const authToken = localStorage.getItem('authToken');
 
-                    // Redirect or Reload
-                    window.location.href = "index.html";
+                    if (!authToken) {
+                        alert("Payment successful, but you are not logged in. Order not saved to history.");
+                        localStorage.removeItem('styleSphereCart');
+                        window.location.href = "index.html";
+                        return;
+                    }
+
+                    const cart = JSON.parse(localStorage.getItem('styleSphereCart')) || [];
+                    const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+                    try {
+                        console.log("Saving order to database...");
+
+                        const saveResponse = await fetch("/.netlify/functions/save-order", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${authToken}`
+                            },
+                            body: JSON.stringify({
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature,
+                                cart: cart,
+                                amount: totalAmount
+                            })
+                        });
+
+                        const saveData = await saveResponse.json();
+
+                        if (saveResponse.ok) {
+                            alert("Order Placed Successfully! Order ID: " + (saveData.orderId || "Confirmed"));
+                            localStorage.removeItem('styleSphereCart');
+                            window.location.href = "index.html";
+                        } else {
+                            console.error("Save failed:", saveData);
+                            alert("Payment success, but failed to save order: " + (saveData.error || "Unknown error"));
+                        }
+
+                    } catch (err) {
+                        console.error("Network error:", err);
+                        alert("Network error while saving order. Please contact support.");
+                    }
                 },
                 "theme": { "color": "#111111" }
-            };
+            }; // <--- THIS CLOSING BRACE WAS MISSING
 
+            // --- THIS EXECUTION CODE WAS MISSING ---
             const rzp1 = new Razorpay(options);
+
+            rzp1.on('payment.failed', function (response) {
+                alert("Payment Failed: " + response.error.description);
+            });
+
             rzp1.open();
 
         } catch (error) {
