@@ -597,3 +597,257 @@ button:disabled,
 .toast.show {
     opacity: 1;
 }
+
+/* LUXURY FILM GRAIN */
+.film-grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.05;
+    /* Adjust this: 0.03 is subtle, 0.07 is heavy */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+    animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-5%, -10%);
+    }
+
+    20% {
+        transform: translate(-15%, 5%);
+    }
+
+    30% {
+        transform: translate(7%, -25%);
+    }
+
+    40% {
+        transform: translate(-5%, 25%);
+    }
+
+    50% {
+        transform: translate(-15%, 10%);
+    }
+
+    60% {
+        transform: translate(15%, 0%);
+    }
+
+    70% {
+        transform: translate(0%, 15%);
+    }
+
+    80% {
+        transform: translate(3%, 35%);
+    }
+
+    90% {
+        transform: translate(-10%, 10%);
+    }
+}
+
+/* CURTAIN TRANSITION */
+.page-transition-curtain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    /* Luxury Black */
+    z-index: 9999;
+    transform: translateY(0);
+    /* Starts covering the screen */
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+    /* The "Luxury" Ease */
+}
+
+/* Class to slide it away */
+.reveal-page {
+    transform: translateY(-100%);
+}
+
+/* Hide default cursor on links to force the custom one */
+a,
+button,
+.btn {
+    cursor: none;
+}
+
+body {
+    cursor: none;
+    /* Hide default everywhere */
+}
+
+/* The Custom Dot */
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: black;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    /* CRITICAL: lets clicks pass through */
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+}
+
+/* The Lagging Circle */
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+    background-color: white;
+    /* Start white */
+    border-color: white;
+    /* Start white */
+    mix-blend-mode: difference;
+    /* The "Lag" effect */
+}
+
+/* Hover State (When over a link) */
+body.hovering .cursor-dot {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0.1;
+}
+
+body.hovering .cursor-outline {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: white;
+    /* Fill it in on hover */
+    border-color: transparent;
+}
+
+/* Wrap image in an overflow-hidden div first in your JS or HTML structure */
+.product-card a {
+    overflow: hidden;
+    /* Prevents image from spilling out */
+    display: block;
+}
+
+.product-card img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    /* The Luxury Change: */
+    transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s;
+    filter: grayscale(10%);
+    /* Subtle moodiness */
+}
+
+.product-card:hover img {
+    transform: scale(1.05);
+    /* Very slow, slight zoom */
+    filter: grayscale(0%);
+    /* Full color on hover */
+}
+
+.marquee-container {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    padding: 1.5rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+}
+
+.marquee-content {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+    font-family: monospace;
+    /* Technical font looks best here */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* 1. Make the Footer Fixed at the back */
+.footer {
+    position: sticky;
+    /* or fixed, but sticky is safer for mobile */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+    /* Send to back */
+    height: 350px;
+    /* You MUST define a height for this to work */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 2. Make the Main Content sit on top */
+main {
+    position: relative;
+    z-index: 2;
+    background-color: var(--color-light);
+    /* Must have BG to hide footer */
+    margin-bottom: 350px;
+    /* Must match footer height so you can scroll to it */
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+    /* A shadow adds to the "Lift" effect */
+}
+
+/* Disable Parallax Footer on Mobile for safety */
+@media (max-width: 768px) {
+    .footer {
+        position: relative;
+        /* Back to normal */
+        height: auto;
+        z-index: 1;
+    }
+
+    main {
+        margin-bottom: 0;
+        /* Remove the gap */
+        box-shadow: none;
+    }
+}
+
+.loader-counter {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    font-family: monospace;
+    font-size: 5rem;
+    /* Huge, industrial font */
+    font-weight: bold;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+/* When the page is revealed, hide the number */
+.reveal-page .loader-counter {
+    opacity: 0;
+}

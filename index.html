@@ -2,6 +2,11 @@
 <html lang="en">
 
 <head>
+    <meta property="og:title" content="Édition de Marvaelle — Luxury Atelier">
+    <meta property="og:description" content="An expression of modern craft. The F/W '25 Collection is now available.">
+    <meta property="og:url" content="https://marvaellee.netlify.app">
+    <meta property="og:image" content="https://marvaellee.netlify.app/images/hero-background.jpg">
+    <meta name="twitter:card" content="summary_large_image">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -21,7 +26,9 @@
 </head>
 
 <body>
-
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+    <div class="film-grain"></div>
     <header class="navbar">
         <div class="container">
             <a href="index.html" class="logo">Édition de Marvaelle</a>
@@ -31,8 +38,14 @@
                     <li><a href="women.html">Women</a></li>
                     <li><a href="index.html">Journal</a></li>
 
-                    <li><a href="#" id="login-button">Login</a></li>
+                    <li id="member-id-container" style="display: none; margin-right: 15px;">
+                        <span
+                            style="font-family: monospace; font-size: 11px; letter-spacing: 2px; color: #888; text-transform: uppercase;">
+                            MEMBER NO. <span id="member-number"></span>
+                        </span>
+                    </li>
 
+                    <li><a href="#" id="login-button">Login</a></li>
                     <li><a href="cart.html" id="cart-button">Cart (<span id="cart-count">0</span>)</a></li>
                 </ul>
             </nav>
@@ -47,7 +60,12 @@
                 <a href="#selection" class="btn btn-light-outline">Explore the Collection</a>
             </div>
         </section>
-
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span>ÉDITION DE MARVAELLE — FALL/WINTER '25 — WORLDWIDE SHIPPING — CRAFTED IN SILENCE — </span>
+                <span>ÉDITION DE MARVAELLE — FALL/WINTER '25 — WORLDWIDE SHIPPING — CRAFTED IN SILENCE — </span>
+            </div>
+        </div>
         <section id="selection" class="featured-products">
             <div class="container">
                 <h2>The Selection</h2>
@@ -104,7 +122,69 @@
     <script src="js/auth.js"></script>
 
     <script src="js/main.js"></script>
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+    <script>
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true
+        });
 
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+    </script>
+    <div class="page-transition-curtain" id="curtain">
+        <div class="loader-counter" id="loader-counter">00</div>
+    </div>
+
+    <script>
+        // 1. On Load: Slide the curtain up to reveal page
+        // 1. The "Cinema" Preloader
+        window.addEventListener('load', () => {
+            const counter = document.getElementById('loader-counter');
+            const curtain = document.getElementById('curtain');
+
+            let count = 0;
+            const interval = setInterval(() => {
+                count++;
+                // Format as "01", "09", "99"
+                counter.innerText = count < 10 ? `0${count}` : count;
+
+                if (count >= 100) {
+                    clearInterval(interval);
+                    // Wait a tiny bit at 100, then lift the curtain
+                    setTimeout(() => {
+                        curtain.classList.add('reveal-page');
+                    }, 200);
+                }
+            }, 20); // Adjust speed (lower is faster)
+        });
+
+        // 2. On Link Click: Slide curtain down before leaving
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+
+                // Ignore hash links (#) or external links
+                // CORRECTED LINE:
+                if (href.startsWith('#') || href.startsWith('http') || this.target === '_blank') return;
+
+                e.preventDefault(); // Stop immediate jump
+
+                const curtain = document.getElementById('curtain');
+                curtain.classList.remove('reveal-page'); // Slide curtain back down
+
+                // Wait for animation (1s) then go to new page
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 1000);
+            });
+        });
+    </script>
 </body>
 
 </html>

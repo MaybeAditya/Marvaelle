@@ -66,6 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!res.ok) throw new Error(data.error || 'Authentication failed');
 
             localStorage.setItem('authToken', data.token);
+            if (data.user) {
+                localStorage.setItem('user_session', JSON.stringify(data.user));
+            }
             loginModal.style.display = "none";
             checkLoginState();
 
